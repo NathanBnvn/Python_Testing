@@ -4,4 +4,6 @@ lib
 .Python
 tests/
 .envrc
+.vscode/settings.json
+.coverage
 __pycache__
