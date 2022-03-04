@@ -35,7 +35,7 @@ def showSummary():
         return redirect(f'unauthorized')
 
 @app.route('/unauthorized')
-def notAllowed():
+def not_allowed():
     return render_template('forbidden.html')
 
 
