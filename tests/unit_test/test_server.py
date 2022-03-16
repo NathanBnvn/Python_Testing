@@ -79,7 +79,7 @@ class TestServer:
             )
         data = response.data.decode()
         assert response.status_code == 200
-        assert "28" in data
+        assert club['points'] == 28
 
 
     def test_board_points_should_status_code_ok(self, client):
