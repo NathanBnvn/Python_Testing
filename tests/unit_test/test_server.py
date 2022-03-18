@@ -12,7 +12,12 @@ class TestServer:
         response = client.get('/')
         assert response.status_code == 200
 
-
+    def test_board_points_should_display(self, client, clubs_test):
+        response = client.get("/")
+        data = response.data.decode()
+        assert "Johnny Test Club" in data
+        assert "10" in data
+    
     def test_login(self, client, clubs_test):
         response = client.post(
             "/showSummary", 
@@ -80,18 +85,6 @@ class TestServer:
         data = response.data.decode()
         assert response.status_code == 200
         assert club['points'] == 28
-
-
-    def test_board_points_should_status_code_ok(self, client):
-        response = client.get("/board")
-        assert response.status_code == 200
-
-
-    def test_board_points_should_display(self, client, clubs_test):
-        response = client.get("/board")
-        data = response.data.decode()
-        assert "Johnny Test Club" in data
-        assert "10" in data
 
 
     def test_logout(self, client):
