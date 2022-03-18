@@ -50,7 +50,7 @@ class TestServer:
         club = clubs_test[0]
         response = client.post(
             "/purchasePlaces", 
-                data=dict(club=club['name'], competition=competition['name'], places="10")
+                data=dict(club=club['name'], competition=competition['name'], places="1")
             )
             
         data = response.data.decode()
@@ -70,16 +70,28 @@ class TestServer:
         assert "This competition is over!" in data
 
 
-    def test_check_club_points_balance(self, client, clubs_test, competitions_test):
+    def test_club_points_balance(self, client, clubs_test, competitions_test):
         club = clubs_test[1]
         competition = competitions_test[1]
         response = client.post(
             "/purchasePlaces", 
-                data=dict(club=club['name'], competition=competition['name'], places="6")
+                data=dict(club=club['name'], competition=competition['name'], places="2")
+            )
+        expected_points = 28
+
+        assert response.status_code == 200
+        assert club['points'] == expected_points
+
+
+    def test_club_points_wrong_balance(self, client, clubs_test, competitions_test):
+        club = clubs_test[0]
+        competition = competitions_test[1]
+        response = client.post(
+            "/purchasePlaces", 
+                data=dict(club=club['name'], competition=competition['name'], places="5")
             )
         data = response.data.decode()
-        assert response.status_code == 200
-        assert club['points'] == 28
+        assert "You dont have enough points" in data
 
 
     def test_board_points_should_status_code_ok(self, client):
