@@ -1,8 +1,4 @@
 
-from cgi import test
-import email
-from unicodedata import name
-from urllib import response
 from datetime import datetime
 from tests.conftest import client, clubs_test, competitions_test
 
@@ -58,7 +54,7 @@ class TestServer:
         assert "Great-booking complete!" in data
 
 
-    def test_not_purchase_place_past_event(self, client, clubs_test, competitions_test):
+    def test_cannot_purchase_place_past_event(self, client, clubs_test, competitions_test):
         competition = competitions_test[0]
         club = clubs_test[0]
         response = client.post(
