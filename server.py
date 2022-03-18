@@ -61,10 +61,15 @@ def purchasePlaces():
     present = datetime.now()
     if datetime.fromisoformat(str(competition['date'])) > present:
         placesRequired = int(request.form['places'])
-        competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
-        club['points'] = int(club['points'])-placesRequired
-        flash('Great-booking complete!')
-        return render_template('welcome.html', club=club, competitions=competitions)
+        clubPoints = int(club['points']) - int(placesRequired * 3)
+        if clubPoints > 0:
+            club['points'] = clubPoints
+            competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
+            flash('Great-booking complete!')
+            return render_template('welcome.html', club=club, competitions=competitions)
+        else:
+            flash('You dont have enough points')
+            return render_template('welcome.html', club=club, competitions=competitions)
     else:
         flash('This competition is over!')
         return render_template('welcome.html', club=club, competitions=competitions)
