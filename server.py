@@ -23,7 +23,7 @@ clubs = loadClubs()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', clubs=clubs)
 
 
 @app.route('/showSummary',methods=['POST'])
@@ -73,12 +73,6 @@ def purchasePlaces():
     else:
         flash('This competition is over!')
         return render_template('welcome.html', club=club, competitions=competitions)
-
-
-# TODO: Add route for points display
-@app.route('/board')
-def display_board():
-    return render_template('board.html', clubs=clubs)
 
 
 @app.route('/logout')
