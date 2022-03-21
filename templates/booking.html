@@ -12,10 +12,11 @@
         <input type="hidden" name="competition" value="{{competition['name']}}">
         <label for="places">How many places?</label>
         {% set maxCount = 12 %}
-        {% if club['points']|int() > maxCount  %}
-            <input type="number" name="places" id="" min="0" max="{{ maxCount }}">
+        {% set clubPoints = club['points']|int() / 3 %}
+        {% if clubPoints > maxCount  %}
+        <input type="number" name="places" id="" min="0" max="{{ maxCount }}">
         {% else  %}
-            <input type="number" name="places" id="" min="0" max="{{ club['points'] }}">
+            <input type="number" name="places" id="" min="0" max="{{ clubPoints }}">
         {% endif %}
         <button type="submit">Book</button>
     </form>

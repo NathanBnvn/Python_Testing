@@ -1,5 +1,6 @@
 
 from datetime import datetime
+from urllib import response
 from tests.conftest import client, clubs_test, competitions_test
 
 class TestServer:
@@ -37,6 +38,13 @@ class TestServer:
             follow_redirects=True
         )
         assert response.status_code == 400
+
+    def test_redirect_to_unauthorized(self, client):
+        response = client.get(
+            "/unauthorized"
+        )
+        data = response.data.decode()
+        assert "Your secretary email is not valid" in data
 
 
     def test_book(self, client, clubs_test, competitions_test):
