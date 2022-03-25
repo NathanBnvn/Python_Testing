@@ -13,8 +13,8 @@
         <label for="places">How many places?</label>
         {% set maxCount = 12 %}
         {% set clubPoints = club['points']|int() / 3 %}
-        {% if clubPoints > maxCount  %}
-        <input type="number" name="places" id="" min="0" max="{{ maxCount }}">
+        {% if clubPoints > maxCount %}
+            <input type="number" name="places" id="" min="0" max="{{ maxCount }}">
         {% else  %}
             <input type="number" name="places" id="" min="0" max="{{ clubPoints }}">
         {% endif %}

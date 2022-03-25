@@ -43,12 +43,12 @@ def not_allowed():
 
 @app.route('/book/<competition>/<club>')
 def book(competition,club):
-    foundClub = [c for c in clubs if c['name'] == club]
-    foundCompetition = [c for c in competitions if c['name'] == competition]
-    if foundClub and foundCompetition:
-        foundClub = foundClub[0]
-        foundCompetition = foundCompetition[0]
-        return render_template('booking.html',club=foundClub,competition=foundCompetition)
+    found_club = [c for c in clubs if c['name'] == club]
+    found_competition = [c for c in competitions if c['name'] == competition]
+    if found_club and found_competition:
+        found_club = found_club[0]
+        found_competition = found_competition[0]
+        return render_template('booking.html',club=found_club,competition=found_competition)
     else:
         flash("Something went wrong-please try again")
         return render_template('welcome.html', club=club, competitions=competitions)
@@ -60,11 +60,11 @@ def purchasePlaces():
     club = [c for c in clubs if c['name'] == request.form['club']][0]
     present = datetime.now()
     if datetime.fromisoformat(str(competition['date'])) > present:
-        placesRequired = int(request.form['places'])
-        clubPoints = int(club['points']) - int(placesRequired * 3)
-        if clubPoints > 0:
-            club['points'] = clubPoints
-            competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
+        places_required = int(request.form['places'])
+        club_points = int(club['points']) - int(places_required * 3)
+        if club_points > 0:
+            club['points'] = club_points
+            competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-places_required
             flash('Great-booking complete!')
             return render_template('welcome.html', club=club, competitions=competitions)
         else:
